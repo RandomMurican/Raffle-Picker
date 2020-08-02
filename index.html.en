@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="rafflepicker.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<head>
+  <title>Raffle Picker</title>
+</head>
+
+<body>
+  <div ng-app="rafflePicker" ng-cloak ng-controller="myCtrl" class="w3-card-2 w3-margin" style="max-width:400px;">
+    <!-- Winner Banner -->
+    <div ng-if="winner.length != 0">
+      <div class="w3-panel w3-blue" ng-if="success">
+        <h3>Winner Picked!<span ng-click="clearWinner()" style="cursor:pointer;" class="w3-right w3-margin-right">&times;</span></h3>
+        <p>{{ winner }}</p>
+      </div>
+      <div class="w3-panel w3-red" ng-if="!success">
+        <h3>Error<span ng-click="clearWinner()" style="cursor:pointer;" class="w3-right w3-margin-right">&times;</span></h3>
+        <p>{{ winner }}</p>
+      </div>
+    </div>
+
+    <!-- Data Entry -->
+    <div class="w3-display-container">
+      <header class="w3-container w3-light-grey w3-padding-16">
+        <h3>Raffle Picker</h3>
+      </header>
+      <ul class="w3-ul">
+        <li class="w3-padding-16 w3-text-gray" ng-if="entries.length == 0">Add some entries below</li>
+        <li ng-repeat="x in entries" class="w3-padding-16">{{ x.Name }} with {{ x.Entries }} {{ x.Entries == 1 ? "Entry" : "Entries" }}<span ng-click="removeItem($index)" style="cursor:pointer;" class="w3-right w3-margin-right">x</span></li>
+      </ul>
+      <div class="w3-container w3-light-grey w3-padding-16">
+        <form class="w3-row w3-margin-top">
+          <div class="w3-col s10">
+            <input id="main" placeholder="Username" ng-model="addUser" class="w3-input w3-border w3-padding">
+            <input type="number" placeholder="Entries" ng-model="addEntry" class="w3-input w3-border w3-padding">
+            <button type="submit" ng-click="addItem()" class="w3-block w3-round-large w3-padding w3-margin-top w3-green w3-hover-teal">Add</button>
+          </div>
+        </form>
+        <p class="w3-text-red">{{ errorMessage }}</p>
+      </div>
+      <button ng-click="pickWinner()" class="w3-display-topright w3-circle w3-padding w3-margin w3-cyan w3-text-white">Pick Winner</button>
+    </div>
+  </div>
+</body>
+</html>
